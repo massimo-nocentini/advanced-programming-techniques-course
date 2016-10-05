@@ -10,7 +10,7 @@ prof [Lorenzo Bettini][bettini] @ University of Florence.
 
 In folder `factorial` there's the port in Python of the code seen in class, which was implemented in Java.
 If you're using VIM, evaluate the command `:source commands.vim`, being in that directory, in order to map
-<F3> key to run test cases instead of typing `!make` command each time.
+`<F3>` key to run test cases instead of typing `!make` command each time.
 
 
 
