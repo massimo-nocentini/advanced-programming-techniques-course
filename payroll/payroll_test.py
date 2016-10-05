@@ -1,6 +1,6 @@
 
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, call
 
 from payroll import PayRoll, Employee
 
@@ -33,9 +33,29 @@ class PayrollTest(unittest.TestCase):
 
     def test_employee_is_paid(self):
         self.employees.append(self._make_employee(identifier='id1', salary=1000))
+
         self.assertEqual(1, self.payRoll.monthly_payment())
         self.bank_service.make_payment.assert_called_once_with(employee_id='id1', salary=1000)
 
+    def test_all_employees_are_paid(self):
+        self.employees.append(self._make_employee(identifier='id1', salary=1000))
+        self.employees.append(self._make_employee(identifier='id2', salary=2000))
+
+        self.assertEqual(2, self.payRoll.monthly_payment())
+        self.assertEqual(2, self.bank_service.make_payment.call_count)
+
+        self.bank_service.make_payment.assert_any_call(employee_id='id1', salary=1000)
+        self.bank_service.make_payment.assert_any_call(employee_id='id2', salary=2000)
+
+    def test_interaction_order(self):
+        
+        self.employees.append(self._make_employee(identifier='id', salary=1000))
+
+        self.assertEqual(1, self.payRoll.monthly_payment())
+
+        happened = self.employeeDB.mock_calls + self.bank_service.mock_calls
+        expected = [call.getAllEmployees(), call.make_payment(employee_id='id', salary=1000)]
+        self.assertEqual(expected, happened)
 
     def _make_employee(self, identifier=None, salary=None):
         return Employee(identifier, salary)

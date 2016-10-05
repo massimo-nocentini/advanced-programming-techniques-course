@@ -7,8 +7,7 @@ class PayRoll:
 
     def monthly_payment(self):
         employees = self.employeeDB.getAllEmployees()
-        if employees:
-            e, *rest = employees
+        for e in employees:
             e.paid_by(self.bank_service)
         return len(employees)
 
