@@ -6,3 +6,7 @@ class PayRoll:
 
     def monthly_payment(self):
         return len(self.employeeDB.getAllEmployees())
+
+class Employee(): 
+    
+    pass
