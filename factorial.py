@@ -2,4 +2,4 @@
 class Factorial(object):
 
     def __call__(self, i):
-        return 120 if i else 1
+        return i*self(i-1) if i else 1

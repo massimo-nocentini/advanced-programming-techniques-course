@@ -14,12 +14,6 @@ class FactorialTest(unittest.TestCase):
     def test_base_case(self):
         self.assertEqual(1, self.factorial(0))
 
-    def test_non_base_case(self):
-        self.assertEqual(120, self.factorial(5))
+    def test_non_base_case(self, i=5):
+        self.assertEqual(self.factorial(i), i * self.factorial(i-1))
 
-
-
-
-
-if __name__ == '__main__':
-    unittest.main()
