@@ -14,7 +14,4 @@ class FactorialTest(unittest.TestCase):
         self.assertEqual(self.factorial(i), i * self.factorial(i-1))
 
     def test_negative_input(self):
-        try:
-            self.factorial(-1)
-            raise Exception("should not be here")
-        except RecursionError: pass
+        self.assertRaises(ValueError, self.factorial, -1)
