@@ -1,6 +1,6 @@
 
 import unittest
-from unittest.mock import Mock, call
+from unittest.mock import Mock, call, patch, create_autospec
 
 from payroll import PayRoll, Employee
 
@@ -9,6 +9,7 @@ class PayrollTest(unittest.TestCase):
     def setUp(self):
 
         self.employees = []
+
         self.employeeDB = Mock()
         self.bank_service = Mock()
 
@@ -56,6 +57,28 @@ class PayrollTest(unittest.TestCase):
         happened = self.employeeDB.mock_calls + self.bank_service.mock_calls
         expected = [call.getAllEmployees(), call.make_payment(employee_id='id', salary=1000)]
         self.assertEqual(expected, happened)
+
+    def test_employee_paid_is_updated_simple_patching(self): 
+
+        employee = self._make_employee(identifier='id1', salary=1000)
+        self.employees.append(employee)
+
+        with patch.object(employee, 'paid') as paid:
+            self.assertEqual(1, self.payRoll.monthly_payment())
+            self.bank_service.make_payment.assert_called_once_with(employee_id='id1', salary=1000)
+            paid.assert_called_once_with(True)
+            self.assertFalse(employee.is_paid)
+        
+    def test_employee_paid_is_updated_wrapping_patching(self): 
+
+        employee = self._make_employee(identifier='id1', salary=1000)
+        self.employees.append(employee)
+
+        with patch.object(employee, 'paid', wraps=employee.paid) as paid:
+            self.assertEqual(1, self.payRoll.monthly_payment())
+            self.bank_service.make_payment.assert_called_once_with(employee_id='id1', salary=1000)
+            paid.assert_called_once_with(True)
+            self.assertTrue(employee.is_paid)
 
     def _make_employee(self, identifier=None, salary=None):
         return Employee(identifier, salary)
