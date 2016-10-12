@@ -151,8 +151,10 @@ class PayrollTest(unittest.TestCase):
         self.employees.extend([employee1, employee2])
 
         def matcher(identifier, salary):
-            #print('*******************', pair)
-            return Exception if (identifier, salary) == ('id2', 2000) else None
+            if (identifier, salary) == ('id2', 2000):
+                raise Exception() 
+            else: 
+                return None
 
         self.bank_service.make_payment.side_effect = matcher
 
