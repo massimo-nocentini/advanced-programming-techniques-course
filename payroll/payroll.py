@@ -1,4 +1,5 @@
 
+
 class PayRoll:
 
     def __init__(self, employeeDB, bank_service):
@@ -8,8 +9,13 @@ class PayRoll:
     def monthly_payment(self):
         employees = self.employeeDB.getAllEmployees()
         for e in employees:
-            e.paid_by(self.bank_service)
-            e.paid(True)
+            try:
+                e.paid_by(self.bank_service)
+                e.paid(True)
+            except:
+                print('exception when paying employee {}.'.format(e.identifier))
+                e.paid(False)
+
         return len(employees)
 
 class Employee: 
@@ -24,3 +30,4 @@ class Employee:
 
     def paid_by(self, bank_service):
         bank_service.make_payment(employee_id=self.identifier, salary=self.salary)
+

@@ -4,6 +4,18 @@ from unittest.mock import Mock, call, patch, create_autospec
 
 from payroll import PayRoll, Employee
 
+from contextlib import contextmanager
+from functools import partial
+
+@contextmanager
+def patch_object_wraps(target, attribute, *args, **kwds):
+
+    if 'wraps' not in kwds:
+        kwds['wraps'] = getattr(target, attribute, None)
+
+    with patch.object(target, attribute, *args, **kwds) as patched: yield patched 
+
+
 class PayrollTest(unittest.TestCase):
 
     def setUp(self):
@@ -80,5 +92,82 @@ class PayrollTest(unittest.TestCase):
             paid.assert_called_once_with(True)
             self.assertTrue(employee.is_paid)
 
+    def test_employee_paid_is_updated_wrapping_patching_refactored(self): 
+
+        employee = self._make_employee(identifier='id1', salary=1000)
+        self.employees.append(employee)
+
+        with patch_object_wraps(employee, 'paid') as paid:
+            self.assertEqual(1, self.payRoll.monthly_payment())
+            self.bank_service.make_payment.assert_called_once_with(employee_id='id1', salary=1000)
+            paid.assert_called_once_with(True)
+            self.assertTrue(employee.is_paid)
+
+    @unittest.expectedFailure
+    def test_is_empty_on_spied_list(self):
+        sequence = []
+        with patch_object_wraps(sequence, '__len__', return_value=False) as length:
+            self.assertEqual(False, len(sequence))
+            self.assertRaises(AttributeError, sequence, len)
+
+    @unittest.expectedFailure
+    def test_getitem_on_patched_list(self):
+        sequence = []
+        with patch_object_wraps(sequence, '__getitem__') as getter:
+            getter(0).return_value = 'foo'
+            self.assertRaises(AttributeError, sequence, len)
+        
+    def test_employees_is_not_paid_when_bank_throws_exception(self):
+            
+        employee = self._make_employee(identifier='id1', salary=1000)
+        self.employees.append(employee)
+        self.bank_service.make_payment.side_effect = Exception
+
+        with patch_object_wraps(employee, 'paid') as paid:
+            self.assertEqual(1, self.payRoll.monthly_payment())
+            self.bank_service.make_payment.assert_called_once_with(employee_id='id1', salary=1000)
+            paid.assert_called_once_with(False)
+            self.assertFalse(employee.is_paid)
+    
+    def test_other_employees_are_paid_in_case_of_a_single_exception(self):
+            
+        employee1 = self._make_employee(identifier='id1', salary=1000)
+        employee2 = self._make_employee(identifier='id2', salary=2000)
+        self.employees.extend([employee1, employee2])
+
+        self.bank_service.make_payment.side_effect = [Exception, None]
+
+        with    patch_object_wraps(employee1, 'paid') as employee1_paid, \
+                patch_object_wraps(employee2, 'paid') as employee2_paid:
+            self.assertEqual(2, self.payRoll.monthly_payment())
+            self.assertEqual(2, self.bank_service.make_payment.call_count)
+            employee1_paid.assert_called_once_with(False)
+            employee2_paid.assert_called_once_with(True)
+
+    def test_other_employees_are_paid_in_case_of_a_single_exception_alternative(self):
+            
+        employee1 = self._make_employee(identifier='id1', salary=1000)
+        employee2 = self._make_employee(identifier='id2', salary=2000)
+        self.employees.extend([employee1, employee2])
+
+        def matcher(identifier, salary):
+            #print('*******************', pair)
+            return Exception if (identifier, salary) == ('id2', 2000) else None
+
+        self.bank_service.make_payment.side_effect = matcher
+
+        with    patch_object_wraps(employee1, 'paid') as employee1_paid, \
+                patch_object_wraps(employee2, 'paid') as employee2_paid:
+            self.assertEqual(2, self.payRoll.monthly_payment())
+            self.assertEqual(2, self.bank_service.make_payment.call_count)
+            employee1_paid.assert_called_once_with(True)
+            employee2_paid.assert_called_once_with(False)
+
+    # protected messages {{{
     def _make_employee(self, identifier=None, salary=None):
         return Employee(identifier, salary)
+    # }}}
+
+
+
+
