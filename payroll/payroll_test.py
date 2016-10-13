@@ -150,13 +150,14 @@ class PayrollTest(unittest.TestCase):
         employee2 = self._make_employee(identifier='id2', salary=2000)
         self.employees.extend([employee1, employee2])
 
-        def matcher(identifier, salary):
+        def matcher(self, identifier, salary):
+            raise Exception()
             if (identifier, salary) == ('id2', 2000):
-                raise Exception() 
+                raise Exception
             else: 
                 return None
 
-        self.bank_service.make_payment.side_effect = matcher
+        self.bank_service.make_payment.side_effect = [None, matcher]
 
         with    patch_object_wraps(employee1, 'paid') as employee1_paid, \
                 patch_object_wraps(employee2, 'paid') as employee2_paid:
