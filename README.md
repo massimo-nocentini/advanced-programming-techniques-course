@@ -11,6 +11,7 @@ prof [Lorenzo Bettini][bettini] @ University of Florence.
 First of all some links about structuring a project for a *healthy* development cycle:
 - http://docs.python-guide.org/en/latest/writing/structure/
 - https://docs.python.org/3/reference/datamodel.html
+- https://www.python.org/dev/peps/pep-0008/
 - http://learnvimscriptthehardway.stevelosh.com/
 
 ## TDD: `factorial`
