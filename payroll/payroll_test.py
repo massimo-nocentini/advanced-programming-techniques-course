@@ -121,7 +121,7 @@ class PayrollTest(unittest.TestCase):
             
         employee = self._make_employee(identifier='id1', salary=1000)
         self.employees.append(employee)
-        self.bank_service.make_payment.side_effect = Exception
+        self.bank_service.make_payment.side_effect = Exception("Raised by mocking `bank_service.make_payment` method")
 
         with patch_object_wraps(employee, 'paid') as paid:
             self.assertEqual(1, self.payRoll.monthly_payment())
@@ -135,7 +135,8 @@ class PayrollTest(unittest.TestCase):
         employee2 = self._make_employee(identifier='id2', salary=2000)
         self.employees.extend([employee1, employee2])
 
-        self.bank_service.make_payment.side_effect = [Exception, None]
+        self.bank_service.make_payment.side_effect = [Exception("Raised by mocking `bank_service.make_payment` method"), 
+                                                      None]
 
         with    patch_object_wraps(employee1, 'paid') as employee1_paid, \
                 patch_object_wraps(employee2, 'paid') as employee2_paid:
@@ -150,21 +151,18 @@ class PayrollTest(unittest.TestCase):
         employee2 = self._make_employee(identifier='id2', salary=2000)
         self.employees.extend([employee1, employee2])
 
-        def matcher(self, identifier, salary):
-            raise Exception()
-            if (identifier, salary) == ('id2', 2000):
-                raise Exception
-            else: 
-                return None
+        def matcher(employee_id, salary):
+            if (employee_id, salary) == ('id2', 2000): raise Exception("Mocking exception only for employee 2")  
+            return None
 
-        self.bank_service.make_payment.side_effect = [None, matcher]
+        self.bank_service.make_payment.side_effect = matcher
 
         with    patch_object_wraps(employee1, 'paid') as employee1_paid, \
                 patch_object_wraps(employee2, 'paid') as employee2_paid:
             self.assertEqual(2, self.payRoll.monthly_payment())
             self.assertEqual(2, self.bank_service.make_payment.call_count)
             employee1_paid.assert_called_once_with(True)
-            employee2_paid.assert_called_once_with(False)
+            employee2.paid.assert_called_once_with(False)
 
     # protected messages {{{
     def _make_employee(self, identifier=None, salary=None):
