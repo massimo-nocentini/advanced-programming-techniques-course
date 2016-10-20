@@ -39,6 +39,11 @@ the following resources,  also:
 - https://blog.fugue.co/2016-02-11-python-mocking-101.html
 - http://wesmckinney.com/blog/spying-with-python-mocks/
 
+### Coverage
+
+We use module `coverage` in order to spot regions of code not stressed by tests. Remember to 
+install such module with `sudo pip3 install coverage`.
+
 [doc:unittest:mock]:https://docs.python.org/3/library/unittest.mock.html
 [payroll:dir]:https://github.com/massimo-nocentini/apt-unifi-course/tree/master/payroll
 
