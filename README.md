@@ -22,11 +22,13 @@ If you're using VIM, evaluate the command `:source commands.vim`, being in that 
 `<F3>` key to run test cases instead of typing `!make` command each time. We collect the following links:
 - [`unittest` module][doc:unittest] official documentation
 - [original paper][beck] by Kent Beck on TDD
+- [BDD][bdd]
 
 
 [doc:unittest]:https://docs.python.org/3/library/unittest.html
 [beck]:https://web.archive.org/web/20150315073817/http://www.xprogramming.com/testfram.htm
 [fact:dir]:https://github.com/massimo-nocentini/apt-unifi-course/tree/master/factorial
+[bdd]:http://pythonhosted.org/behave/tutorial.html
 
 ## Mocking: `payroll`
 
