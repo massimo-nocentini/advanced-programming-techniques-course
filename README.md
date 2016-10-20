@@ -41,11 +41,12 @@ the following resources,  also:
 
 ### Coverage
 
-We use module `coverage` in order to spot regions of code not stressed by tests. Remember to 
+We use module [`coverage`][cov] in order to spot regions of code not stressed by tests. Remember to 
 install such module with `sudo pip3 install coverage`.
 
 [doc:unittest:mock]:https://docs.python.org/3/library/unittest.mock.html
 [payroll:dir]:https://github.com/massimo-nocentini/apt-unifi-course/tree/master/payroll
+[cov]:https://coverage.readthedocs.io/en/coverage-4.2/index.html
 
 ## Dependency Injection
 
