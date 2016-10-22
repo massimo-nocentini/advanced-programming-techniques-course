@@ -1,4 +1,5 @@
 
+class BrokenImplementation(Exception): pass
 
 class TestCase:
 
@@ -17,7 +18,7 @@ class TestCase:
         try:
             method = self.getter(self)
             method()
-        except:
+        except BrokenImplementation:
             result.test_failed()
 
         self.tear_down()
@@ -32,7 +33,7 @@ class WasRun(TestCase):
         self.log.append('test_method')
 
     def broken_test_method(self):
-        raise Exception
+        raise BrokenImplementation
     
     def set_up(self):
         self.was_run = False
@@ -57,3 +58,22 @@ class TestResult:
 
     def test_failed(self):
         self.failed_count += 1
+
+
+class TestSuite:
+
+    def __init__(self):
+        self.tests = []
+        
+    def append(self, case):
+        self.tests.append(case)
+    
+    def run(self):
+#       However, one of the main constraints on Composite interface, in this case about `run` message,
+#       is that the aggragate must respond to the same messages as the individual objects. If we add a
+#       parameter to test objects in `self.tests`, then we have to add the same parameter to `TestSuite`,
+#       objects of this class, too.
+        result = TestResult()
+        for test in self.tests:
+            test.run(result)
+        return result
