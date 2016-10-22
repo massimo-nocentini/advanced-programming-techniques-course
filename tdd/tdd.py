@@ -1,16 +1,21 @@
 
-class WasRun:
 
-    # Now class `WasRun` is doing two distinct jobs: one is keeping track whether
-    # a method was invoked or not, and the other is (dynamically) invoking the method.
+class TestCase:
 
     def __init__(self, getter):
-        self.was_run = False
         self.getter = getter
+
+    def run(self):
+        method = self.getter(self)
+        method()
+
+
+class WasRun(TestCase):
+
+    def __init__(self, getter):
+        TestCase.__init__(self, getter)
+        self.was_run = False
 
     def test_method(self):
         self.was_run = True 
     
-    def run(self):
-        method = self.getter(self)
-        method()
