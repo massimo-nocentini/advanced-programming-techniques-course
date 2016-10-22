@@ -10,8 +10,8 @@ class TestCase:
 
     def tear_down(self): pass
     
-    def run(self):
-        result = TestResult()
+    def run(self, result):
+
         result.test_started()
         self.set_up()
 
@@ -22,8 +22,6 @@ class TestCase:
             result.test_failed()
 
         self.tear_down()
-
-        return result
 
 
 class WasRun(TestCase):
@@ -68,12 +66,8 @@ class TestSuite:
     def append(self, case):
         self.tests.append(case)
     
-    def run(self):
-#       However, one of the main constraints on Composite interface, in this case about `run` message,
-#       is that the aggragate must respond to the same messages as the individual objects. If we add a
-#       parameter to test objects in `self.tests`, then we have to add the same parameter to `TestSuite`,
-#       objects of this class, too.
-        result = TestResult()
-        for test in self.tests:
-            test.run(result)
-        return result
+    def run(self, result):
+        for test in self.tests: test.run(result)
+
+
+
