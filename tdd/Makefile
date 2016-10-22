@@ -1,3 +1,3 @@
 
 run:
-	python3.5 tdd_test.py
+	python3.5 run_tests.py
