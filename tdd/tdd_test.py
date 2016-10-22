@@ -14,3 +14,8 @@ class TestCaseTest(TestCase):
     def test_result(self):
         result = self.test.run()
         assert "1 run, 0 failed" == result.summary()
+
+    def test_failed_result(self):
+        self.test = WasRun(lambda test: test.broken_test_method)
+        result = self.test.run()
+        assert "1 run, 1 failed" == result.summary()

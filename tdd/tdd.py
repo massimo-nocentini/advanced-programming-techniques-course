@@ -22,6 +22,9 @@ class WasRun(TestCase):
     def test_method(self):
         self.was_run = True 
         self.log.append('test_method')
+
+    def broken_test_method(self):
+        raise Exception
     
     def set_up(self):
         self.was_run = False
