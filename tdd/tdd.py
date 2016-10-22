@@ -13,9 +13,15 @@ class TestCase:
         result = TestResult()
         result.test_started()
         self.set_up()
-        method = self.getter(self)
-        method()
+
+        try:
+            method = self.getter(self)
+            method()
+        except:
+            result.test_failed()
+
         self.tear_down()
+
         return result
 
 
