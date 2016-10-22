@@ -19,3 +19,9 @@ class TestCaseTest(TestCase):
         self.test = WasRun(lambda test: test.broken_test_method)
         result = self.test.run()
         assert "1 run, 1 failed" == result.summary()
+
+    def test_failed_result_formatting(self):
+        result = TestResult()
+        result.test_started()
+        result.test_failed()
+        assert "1 run, 1 failed" == result.summary()

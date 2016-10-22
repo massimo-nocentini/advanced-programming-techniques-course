@@ -10,11 +10,13 @@ class TestCase:
     def tear_down(self): pass
     
     def run(self):
+        result = TestResult()
+        result.test_started()
         self.set_up()
         method = self.getter(self)
         method()
         self.tear_down()
-        return TestResult()
+        return result
 
 
 class WasRun(TestCase):
@@ -37,5 +39,15 @@ class WasRun(TestCase):
 
 class TestResult:
 
+    def __init__(self):
+        self.run_count = 0
+        self.failed_count = 0
+
     def summary(self):
-        return "1 run, 0 failed"
+        return "{} run, {} failed".format(self.run_count, self.failed_count)
+
+    def test_started(self):
+        self.run_count += 1
+
+    def test_failed(self):
+        self.failed_count += 1
