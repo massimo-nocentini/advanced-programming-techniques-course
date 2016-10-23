@@ -30,6 +30,16 @@ If you're using VIM, evaluate the command `:source commands.vim`, being in that 
 [fact:dir]:https://github.com/massimo-nocentini/apt-unifi-course/tree/master/factorial
 [bdd]:http://pythonhosted.org/behave/tutorial.html
 
+## TDD: bootstrapping a test framework
+
+In folder [`tdd`][tdd:folder] there's the bootstrap of a tiny test framework, *driven by test-first*, in the spirit
+of [Kent Beck][tdd:beck]. We record a commit for each interesting point, in order to be able to look at the history
+as a learning process about the derivation of a simple but working unit-test framework driven by tests, it's a kind
+of self-brain surgery ;)
+
+[tdd:beck]:https://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530/ref=pd_sim_14_6?_encoding=UTF8&psc=1&refRID=P274Z8V81HKRP4S2YHHS
+[tdd:folder]:https://github.com/massimo-nocentini/advanced-programming-techniques-course/tree/master/tdd
+
 ## Mocking: `payroll`
 
 In folder [`payroll`][payroll:dir] there's some code about *mocking* concepts, applied to implementing a payroll example.
