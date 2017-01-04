@@ -74,7 +74,7 @@ Some links:
 # Continuous Integration
 
 ![build-status-flag]
-(https://api.travis-ci.org/massimo-nocentini/advanced-programming-techniques-course.svg?branch=travis-integration)
+(https://travis-ci.org/massimo-nocentini/advanced-programming-techniques-course.svg?branch=master)
 
 We've set up a link with [Travis CI][travis] and this repository in order to
 have automatic builds for our code, `factorial` and `payroll` exercises in
