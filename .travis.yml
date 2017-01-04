@@ -5,6 +5,7 @@
 language: python
 
 python:
+    - "3.4"
     - "3.5"
 
 # command to install dependencies, however no dep is required
