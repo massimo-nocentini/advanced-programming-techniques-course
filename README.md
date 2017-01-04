@@ -1,10 +1,12 @@
 
 # Description
 
-A repo to collect work while attending classes of *Advanced Programming
-Techniques* taught by prof [Lorenzo Bettini][bettini] @ University of Florence.
+A repo to collect work while attending classes of [Advanced Programming
+Techniques][course] course, taught by prof [Lorenzo Bettini][bettini] @
+University of Florence.
 
 [bettini]:https://github.com/LorenzoBettini
+[course]:https://e-l.unifi.it/course/view.php?id=2215
 
 # Content
 
