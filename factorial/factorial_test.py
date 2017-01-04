@@ -16,5 +16,6 @@ class FactorialTest(unittest.TestCase):
     def test_negative_input(self):
         self.assertRaises(ValueError, self.factorial, -1)
 
+    @unittest.skip("restoring correct behavior")
     def test_forced_failure(self):
         self.fail("Forced failure")
