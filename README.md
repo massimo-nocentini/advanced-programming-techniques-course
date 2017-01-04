@@ -80,6 +80,6 @@ Some links:
 
 We've set up a link with [Travis CI][travis] and this repository in order to
 have automatic builds for our code, `factorial` and `payroll` exercises in
-particular.
+particular. More info here: https://docs.travis-ci.com/user/customizing-the-build/
 
 [travis]:https://travis-ci.org/massimo-nocentini/advanced-programming-techniques-course
