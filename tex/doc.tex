@@ -12,6 +12,7 @@
 \usepackage{euler} % for math
 \usepackage{beramono} % for typewriter
 \usepackage{newtxtext} % for text
+\usepackage{minted}
 
 \textwidth 16cm \textheight 23cm \topmargin -1cm \oddsidemargin 0cm
 
@@ -21,55 +22,69 @@
 \begin{document}
 
 
-\title{Algebraic generating functions for languages \\ avoiding Riordan patterns}
-\author{D. Merlini and M. Nocentini\\
+\title{\texttt{unittest} and \texttt{unittest.mock}\\ Python modules: some exercises}
+\author{Massimo Nocentini\\
 Dipartimento di Statistica, Informatica, Applicazioni \\ 
 viale Morgagni 65, 50134, Firenze, Italia \\ 
-{\sl donatella.merlini@unifi.it, massimo.nocentini@unifi.it}}
+{\sl  massimo.nocentini@unifi.it}}
+
 \date{\today}
+
 \maketitle
+
 \begin{abstract}
 
-We study the languages  $\mathfrak{L}^{[\mathfrak{p}]}\subset \{0,1\}^*$ of
-binary words $w$ avoiding a given pattern $\mathfrak{p}$ such that $|w_0|\leq
-|w_1|$ for any $w\in \mathfrak{L}^{[\mathfrak{p}]},$ where  $|w_0|$ and $|w_1|$
-correspond to the number of bits $1$ and $0$ in the word $w$, respectively.  In
-particular, we concentrates on  patterns $\mathfrak{p}$ related to the concept
-of Riordan arrays. These languages are not regular and can be enumerated by
-algebraic generating functions corresponding to many integer sequences which
-are unknown in the OEIS .  We give explicit formulas for these generating
-functions expressed in terms of the autocorrelation polynomial of
-$\mathfrak{p}$ and also give explicit formulas for the coefficients of some
-particular patterns, algebraically and combinatorially. 
-
+This note collects three exercises about \textit{Test-Driven Development}
+and \textit{Mocking} methodologies; in particular, \texttt{unittest} and
+\texttt{unittest.mock} Python modules are investigated and used
+in order to simulate the Java counterpart given in \cite{course}. 
+ 
 \end{abstract}
 
 \section{Introduction}
 
+Our aim is to deepen the understanding of two Python modules, namely
+\texttt{unittest} and \texttt{unittest.mock}, and use them in an \emph{agile
+programming} context: the former concerns \textit{TDD}, the latter concerns
+\textit{mocking}.  Both modules belong to the Python Standard Library
+\cite{psl} and are used in two toy projects, \texttt{factorial} and
+\texttt{payroll} respectively, to drive development in order to write clean
+and maintainable pieces of code; moreover, we bootstrap a tiny testing framework
+from scratch. The following sections describe them in more details.
+
+\section{Toy projects}
+
+\subsection{\texttt{factorial}}
+
+\inputminted{python}{../factorial/factorial.py}
+\inputminted{python}{../factorial/factorial_test.py}
+
+\subsection{\texttt{payroll}}
+
+\subsection{\texttt{bootstrapping}}
+
+\section{GitHub and Travis CI}
+
+\section{Conclusions}
 
 % Bibliography {{{
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\bibliographystyle{plain}
-%\bibliography{../../tex/bibliogr}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\begin{thebibliography}{10}
+\begin{thebibliography}{10}
+
+\bibitem{course}
+Lorenzo Bettini,
+\newblock {\em B026351 (B059) - Tecniche Avanzate di Programmazione, 2016/2017}
+\newblock \url{https://e-l.unifi.it/course/view.php?id=2215}
 %
-%\bibitem{AA02}
-%A.~Apostolico and M.~Atallah.
-%\newblock Compact recognizers of episode sequences.
-%\newblock {\em Information and Computation}, 174(2):180--192, 2002.
+\bibitem{psl}
+Python Software Foundation,
+\newblock {\em Python Standard Library},
+\newblock \url{https://docs.python.org/3/library/}
 %
-%\bibitem{BMS07a}
-%D.~Baccherini, D.~Merlini, and R.~Sprugnoli.
-%\newblock Binary words excluding a pattern and proper {R}iordan arrays.
-%\newblock {\em Discrete Mathematics}, 307:1021--1037, 2007.
-%
-%\bibitem{CS63}
-%N.~Chomsky and M.~P. Sch\"utzenberger.
-%\newblock The algebraic theory of context-free languages.
-%\newblock In {\em Computer programming and formal languages}, volume~65, pages
-%  118--161, North Holland, 1963.
+\bibitem{beck}
+Kent Beck,
+\newblock {\em Test Driven Development: By Example},
+\newblock Addison-Wesley, 2002
 %
 %\bibitem{FKT88}
 %P.~Flajolet, P.~Kirschenhofer, and R.~F. Tichy.
@@ -149,7 +164,7 @@ particular patterns, algebraically and combinatorially.
 %\newblock {\em Introduction to Computational Biology}.
 %\newblock Chapman \& Hall, London, 1995.
 %
-%\end{thebibliography}
+\end{thebibliography}
 % }}}
 
 \end{document}
