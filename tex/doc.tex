@@ -1,0 +1,156 @@
+
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathdots}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[T1]{fontenc}
+\usepackage{euler} % for math
+\usepackage{beramono} % for typewriter
+\usepackage{newtxtext} % for text
+
+\textwidth 16cm \textheight 23cm \topmargin -1cm \oddsidemargin 0cm
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{Algebraic generating functions for languages \\ avoiding Riordan patterns}
+\author{D. Merlini and M. Nocentini\\
+Dipartimento di Statistica, Informatica, Applicazioni \\ 
+viale Morgagni 65, 50134, Firenze, Italia \\ 
+{\sl donatella.merlini@unifi.it, massimo.nocentini@unifi.it}}
+\date{\today}
+\maketitle
+\begin{abstract}
+
+We study the languages  $\mathfrak{L}^{[\mathfrak{p}]}\subset \{0,1\}^*$ of
+binary words $w$ avoiding a given pattern $\mathfrak{p}$ such that $|w_0|\leq
+|w_1|$ for any $w\in \mathfrak{L}^{[\mathfrak{p}]},$ where  $|w_0|$ and $|w_1|$
+correspond to the number of bits $1$ and $0$ in the word $w$, respectively.  In
+particular, we concentrates on  patterns $\mathfrak{p}$ related to the concept
+of Riordan arrays. These languages are not regular and can be enumerated by
+algebraic generating functions corresponding to many integer sequences which
+are unknown in the OEIS .  We give explicit formulas for these generating
+functions expressed in terms of the autocorrelation polynomial of
+$\mathfrak{p}$ and also give explicit formulas for the coefficients of some
+particular patterns, algebraically and combinatorially. 
+
+\end{abstract}
+
+\section{Introduction}
+
+
+% Bibliography {{{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\bibliographystyle{plain}
+%\bibliography{../../tex/bibliogr}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{thebibliography}{10}
+%
+%\bibitem{AA02}
+%A.~Apostolico and M.~Atallah.
+%\newblock Compact recognizers of episode sequences.
+%\newblock {\em Information and Computation}, 174(2):180--192, 2002.
+%
+%\bibitem{BMS07a}
+%D.~Baccherini, D.~Merlini, and R.~Sprugnoli.
+%\newblock Binary words excluding a pattern and proper {R}iordan arrays.
+%\newblock {\em Discrete Mathematics}, 307:1021--1037, 2007.
+%
+%\bibitem{CS63}
+%N.~Chomsky and M.~P. Sch\"utzenberger.
+%\newblock The algebraic theory of context-free languages.
+%\newblock In {\em Computer programming and formal languages}, volume~65, pages
+%  118--161, North Holland, 1963.
+%
+%\bibitem{FKT88}
+%P.~Flajolet, P.~Kirschenhofer, and R.~F. Tichy.
+%\newblock Deviations from uniformity in random strings.
+%\newblock {\em Probability Theory and Related Fields}, 80:139--150, 1988.
+%
+%\bibitem{FS09}
+%P.~Flajolet and R.~Sedgewick.
+%\newblock {\em Analytic combinatorics}.
+%\newblock Cambridge University Press, 2009.
+%
+%\bibitem{FSV06}
+%P.~Flajolet, W.~Szpankowski, and B.~Vall\'ee.
+%\newblock Hidden word statistics.
+%\newblock {\em Journal of the ACM}, 53(1):147--183, 2006.
+%
+%\bibitem{GO80}
+%L.~J. Guibas and M.~Odlyzko.
+%\newblock Long repetitive patterns in random sequences.
+%\newblock {\em Zeitschrift f\"{u}r Wahrscheinlichkeitstheorie}, 53:241--262,
+%  1980.
+%
+%\bibitem{GO81}
+%L.~J. Guibas and M.~Odlyzko.
+%\newblock String overlaps, pattern matching, and nontransitive games.
+%\newblock {\em Journal of Combinatorial Theory, Series A}, 30:183--208, 1981.
+%
+%\bibitem{KMP77}
+%D.~E. Knuth, J.~H. Morris, and V.~R. Pratt.
+%\newblock Fast pattern matching in strings.
+%\newblock {\em SIAM journal on Computing}, 6:281--315, 1977.
+%
+%\bibitem{KS94}
+%S.~Kumar and E.~H. Spafford.
+%\newblock A pattern matching model for misuse intrusion detection.
+%\newblock In {\em Proceedings of the 17th National Computer Security
+%  Conference}, pages 11--21, 1994.
+%
+%\bibitem{Mer95}
+%D.~Merlini.
+%\newblock I {R}iordan {A}rray nell'{An}alisi degli {A}lgoritmi.
+%\newblock Tesi di Dottorato, Universit{\`a} degli Studi di Firenze, 1996.
+%
+%\bibitem{MRSV97}
+%D.~Merlini, D.~G. Rogers, R.~Sprugnoli, and M.~C. Verri.
+%\newblock On some alternative characterizations of {R}iordan arrays.
+%\newblock {\em Canadian Journal of Mathematics}, 49(2):301--320, 1997.
+%
+%\bibitem{RFPGP00}
+%I.~Rigoutsos, A.~Floratos, L.~Parida, Y.~Gao, and D.~Platt.
+%\newblock The emergence of pattern discovery techniques in computational
+%  biology.
+%\newblock {\em Metabolic Engineering}, 2:159--177, 2000.
+%
+%\bibitem{SF96}
+%R.~Sedgewick and P.~Flajolet.
+%\newblock {\em An {I}ntroduction to the {A}nalysis of {A}lgorithms}.
+%\newblock Addison-Wesley, Reading, MA, 1996.
+%
+%\bibitem{SGWW91}
+%L.~W. Shapiro, S.~Getu, W.-J. Woan, and L.~Woodson.
+%\newblock The {R}iordan group.
+%\newblock {\em Discrete Applied Mathematics}, 34:229--239, 1991.
+%
+%\bibitem{Spr94}
+%R.~Sprugnoli.
+%\newblock Riordan arrays and combinatorial sums.
+%\newblock {\em Discrete Mathematics}, 132:267--290, 1994.
+%
+%\bibitem{Sta99}
+%R.~P. Stanley.
+%\newblock {\em Enumerative {C}ombinatorics}, volume~2.
+%\newblock Cambridge University Press, Cambridge, 1999.
+%
+%\bibitem{Wat95}
+%M.~Waterman.
+%\newblock {\em Introduction to Computational Biology}.
+%\newblock Chapman \& Hall, London, 1995.
+%
+%\end{thebibliography}
+% }}}
+
+\end{document}
+
