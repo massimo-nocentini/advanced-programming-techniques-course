@@ -6,7 +6,7 @@ Techniques][course] course, taught by prof [Lorenzo Bettini][bettini] @
 University of Florence; although the course targets Java-like languages,
 our aim is to port and implement concepts using the _Python_ language.
 
-Three toy projects have implemented, as described in the following sections.
+Three toy projects have been implemented, as described in the following sections.
 
 [bettini]:https://github.com/LorenzoBettini
 [course]:https://e-l.unifi.it/course/view.php?id=2215
