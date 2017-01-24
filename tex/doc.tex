@@ -46,26 +46,69 @@ in order to simulate the Java counterpart given in \cite{course}.
 Our aim is to deepen the understanding of two Python modules, namely
 \texttt{unittest} and \texttt{unittest.mock}, and use them in an \emph{agile
 programming} context: the former concerns \textit{TDD}, the latter concerns
-\textit{mocking}.  Both modules belong to the Python Standard Library
-\cite{psl} and are used in two toy projects, \texttt{factorial} and
-\texttt{payroll} respectively, to drive development in order to write clean
-and maintainable pieces of code; moreover, we bootstrap a tiny testing framework
-from scratch. The following sections describe them in more details.
+\textit{mocking}, as their names suggest.  Both modules belong to the Python
+Standard Library \cite{psl}, available for both Python 2.7 and 3.x releases;
+eventually, we code two toy projects, \texttt{factorial} and \texttt{payroll}
+respectively, using the provided definitions in order to write clean and
+maintainable pieces of code.  As a side project, we bootstrap a tiny testing
+framework from scratch, all versioned and integrated on top of GitHub. The
+following sections describe them in more details.
 
 \section{Toy projects}
 
 \subsection{\texttt{factorial}}
-
-\inputminted{python}{../factorial/factorial.py}
+In this exercise we define and implement the factorial function $n!$ for $n\in\mathbb{N}$,
+driven by test cases using the \texttt{unittest} module \cite{unittest}; 
+the following definitions read as a \emph{runnable specification}:
 \inputminted{python}{../factorial/factorial_test.py}
+Therefore a possible implementation satisfying the given requirements reads as follows:
+\inputminted{python}{../factorial/factorial.py}
+where it is interesting to observe that implementation use iteration, while the specification
+is given using recursion. Moreover, examples seen during classes have been easily ported on top
+of \texttt{unittest} module.
 
 \subsection{\texttt{payroll}}
 
+In this exercise we want to \emph{mock} dependencies of
+\mintinline{python}{Payroll} objects to test them in isolation using
+definitions provided by the \texttt{unittest.mock} module \cite{unittest.mock}.
+Here is the system under test: \inputminted[firstline=1,
+lastline=19]{python}{../payroll/payroll.py} where dependecies are given in the
+ctor and interaction happens in method \mintinline{python}{monthly_payment}.
+
+On the other hand, in the corresponding test class, dependencies are mocked
+with \texttt{unittest.mock.Mock} objects in the \texttt{setUp} method and an
+example of \emph{stubbing} is given in the following chunk:
+\inputminted[firstline=20, lastline=30]{python}{../payroll/payroll_test.py}
+Moreover, the following methods have been implemented to show a parallel with
+objects and methods provided by \texttt{Mockito}, a Java mocking framework for
+what concerns interception of a single method call: \inputminted[firstline=42,
+lastline=51]{python}{../payroll/payroll_test.py} and about a sequence of method
+calls: \inputminted[firstline=63,
+lastline=73]{python}{../payroll/payroll_test.py} Finally, all the code shown in
+Java has been ported in test class \texttt{PayrollTest}.
+
 \subsection{\texttt{bootstrapping}}
+In this exercise we experience the bootstrap of a unit test framework, 
+driven by test itself; in parallel, we find interesting to look at version
+history to understand the steps that make it happen, strictly following
+\cite{beck}. The driver reads as follows:
+\inputminted{python}{../tdd/tdd_test.py}
 
 \section{GitHub and Travis CI}
 
+All code has been versioned using \emph{Git} and hosted at \cite{repo}; moreover,
+a link with \emph{Travis CI} server \cite{travis} has been established in order to have
+automatic builds for both branches and pull requests, targeting two 
+different releases of Python, in particular according to the following build configuration
+\inputminted{yaml}{../.travis.yml}
+
 \section{Conclusions}
+
+We have shown two ports of simple exercises using the Python language,
+in order to understand and translate TDD and mock concept provided by
+Java framework in pure Python; additionally, a simple but working
+test framework has been implemented from scratch.
 
 % Bibliography {{{
 
@@ -86,83 +129,23 @@ Kent Beck,
 \newblock {\em Test Driven Development: By Example},
 \newblock Addison-Wesley, 2002
 %
-%\bibitem{FKT88}
-%P.~Flajolet, P.~Kirschenhofer, and R.~F. Tichy.
-%\newblock Deviations from uniformity in random strings.
-%\newblock {\em Probability Theory and Related Fields}, 80:139--150, 1988.
+\bibitem{unittest}
+Python Software Foundation,
+\newblock {\em \texttt{unittest} -- Unit testing framework},
+\newblock \url{https://docs.python.org/3/library/unittest.html}
 %
-%\bibitem{FS09}
-%P.~Flajolet and R.~Sedgewick.
-%\newblock {\em Analytic combinatorics}.
-%\newblock Cambridge University Press, 2009.
+\bibitem{unittest.mock}
+Python Software Foundation,
+\newblock {\em \texttt{unittest.mock} -- mock object library},
+\newblock \url{https://docs.python.org/3/library/unittest.mock.html}
 %
-%\bibitem{FSV06}
-%P.~Flajolet, W.~Szpankowski, and B.~Vall\'ee.
-%\newblock Hidden word statistics.
-%\newblock {\em Journal of the ACM}, 53(1):147--183, 2006.
+\bibitem{repo}
+Massimo Nocentini,
+\newblock \url{https://github.com/massimo-nocentini/advanced-programming-techniques-course}
 %
-%\bibitem{GO80}
-%L.~J. Guibas and M.~Odlyzko.
-%\newblock Long repetitive patterns in random sequences.
-%\newblock {\em Zeitschrift f\"{u}r Wahrscheinlichkeitstheorie}, 53:241--262,
-%  1980.
-%
-%\bibitem{GO81}
-%L.~J. Guibas and M.~Odlyzko.
-%\newblock String overlaps, pattern matching, and nontransitive games.
-%\newblock {\em Journal of Combinatorial Theory, Series A}, 30:183--208, 1981.
-%
-%\bibitem{KMP77}
-%D.~E. Knuth, J.~H. Morris, and V.~R. Pratt.
-%\newblock Fast pattern matching in strings.
-%\newblock {\em SIAM journal on Computing}, 6:281--315, 1977.
-%
-%\bibitem{KS94}
-%S.~Kumar and E.~H. Spafford.
-%\newblock A pattern matching model for misuse intrusion detection.
-%\newblock In {\em Proceedings of the 17th National Computer Security
-%  Conference}, pages 11--21, 1994.
-%
-%\bibitem{Mer95}
-%D.~Merlini.
-%\newblock I {R}iordan {A}rray nell'{An}alisi degli {A}lgoritmi.
-%\newblock Tesi di Dottorato, Universit{\`a} degli Studi di Firenze, 1996.
-%
-%\bibitem{MRSV97}
-%D.~Merlini, D.~G. Rogers, R.~Sprugnoli, and M.~C. Verri.
-%\newblock On some alternative characterizations of {R}iordan arrays.
-%\newblock {\em Canadian Journal of Mathematics}, 49(2):301--320, 1997.
-%
-%\bibitem{RFPGP00}
-%I.~Rigoutsos, A.~Floratos, L.~Parida, Y.~Gao, and D.~Platt.
-%\newblock The emergence of pattern discovery techniques in computational
-%  biology.
-%\newblock {\em Metabolic Engineering}, 2:159--177, 2000.
-%
-%\bibitem{SF96}
-%R.~Sedgewick and P.~Flajolet.
-%\newblock {\em An {I}ntroduction to the {A}nalysis of {A}lgorithms}.
-%\newblock Addison-Wesley, Reading, MA, 1996.
-%
-%\bibitem{SGWW91}
-%L.~W. Shapiro, S.~Getu, W.-J. Woan, and L.~Woodson.
-%\newblock The {R}iordan group.
-%\newblock {\em Discrete Applied Mathematics}, 34:229--239, 1991.
-%
-%\bibitem{Spr94}
-%R.~Sprugnoli.
-%\newblock Riordan arrays and combinatorial sums.
-%\newblock {\em Discrete Mathematics}, 132:267--290, 1994.
-%
-%\bibitem{Sta99}
-%R.~P. Stanley.
-%\newblock {\em Enumerative {C}ombinatorics}, volume~2.
-%\newblock Cambridge University Press, Cambridge, 1999.
-%
-%\bibitem{Wat95}
-%M.~Waterman.
-%\newblock {\em Introduction to Computational Biology}.
-%\newblock Chapman \& Hall, London, 1995.
+\bibitem{travis}
+Massimo Nocentini,
+\newblock \url{https://travis-ci.org/massimo-nocentini/advanced-programming-techniques-course}
 %
 \end{thebibliography}
 % }}}

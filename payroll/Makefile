@@ -1,6 +1,6 @@
 
 tests-local:
-	python3.5 -m unittest -v payroll_test.py
+	python3.6 -m unittest -v payroll_test.py
 
 tests:
 	python -m unittest -v payroll_test.py

@@ -48,7 +48,8 @@ class PayrollTest(unittest.TestCase):
         self.employees.append(self._make_employee(identifier='id1', salary=1000))
 
         self.assertEqual(1, self.payRoll.monthly_payment())
-        self.bank_service.make_payment.assert_called_once_with(employee_id='id1', salary=1000)
+        self.bank_service.make_payment.assert_called_once_with(
+            employee_id='id1', salary=1000)
 
     def test_all_employees_are_paid(self):
         self.employees.append(self._make_employee(identifier='id1', salary=1000))
@@ -67,7 +68,8 @@ class PayrollTest(unittest.TestCase):
         self.assertEqual(1, self.payRoll.monthly_payment())
 
         happened = self.employeeDB.mock_calls + self.bank_service.mock_calls
-        expected = [call.getAllEmployees(), call.make_payment(employee_id='id', salary=1000)]
+        expected = [call.getAllEmployees(), 
+                    call.make_payment(employee_id='id', salary=1000)]
         self.assertEqual(expected, happened)
 
     def test_employee_paid_is_updated_simple_patching(self): 

@@ -13,7 +13,8 @@ class PayRoll:
                 e.paid_by(self.bank_service)
                 e.paid(True)
             except Exception as exc:
-                print('exception when paying employee {}. Exception:\n{}'.format(e.identifier, exc))
+                print('exception when paying employee {}. Exception:\n{}'.format(
+                    e.identifier, exc))
                 e.paid(False)
 
         return len(employees)

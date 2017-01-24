@@ -1,7 +1,6 @@
 
 from tdd import *
 
-
 class TestCaseTest(TestCase):
 
     def set_up(self):
