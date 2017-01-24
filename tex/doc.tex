@@ -51,8 +51,8 @@ Standard Library \cite{psl}, available for both Python 2.7 and 3.x releases;
 eventually, we code two toy projects, \texttt{factorial} and \texttt{payroll}
 respectively, using the provided definitions in order to write clean and
 maintainable pieces of code.  As a side project, we bootstrap a tiny testing
-framework from scratch, all versioned and integrated on top of GitHub. The
-following sections describe them in more details.
+framework from scratch, all versioned and integrated on top of \emph{GitHub}
+and \emph{Travis CI}. The following sections describe them in more details.
 
 \section{Toy projects}
 
@@ -63,8 +63,8 @@ the following definitions read as a \emph{runnable specification}:
 \inputminted{python}{../factorial/factorial_test.py}
 Therefore a possible implementation satisfying the given requirements reads as follows:
 \inputminted{python}{../factorial/factorial.py}
-where it is interesting to observe that implementation use iteration, while the specification
-is given using recursion. Moreover, examples seen during classes have been easily ported on top
+\noindent where it is interesting to observe that implementation uses iteration, while the specification
+is given by recursion. Moreover, examples seen during classes have been easily ported on top
 of \texttt{unittest} module.
 
 \subsection{\texttt{payroll}}
@@ -73,7 +73,8 @@ In this exercise we want to \emph{mock} dependencies of
 \mintinline{python}{Payroll} objects to test them in isolation using
 definitions provided by the \texttt{unittest.mock} module \cite{unittest.mock}.
 Here is the system under test: \inputminted[firstline=1,
-lastline=19]{python}{../payroll/payroll.py} where dependecies are given in the
+lastline=19]{python}{../payroll/payroll.py} 
+\noindent where dependecies are given in the
 ctor and interaction happens in method \mintinline{python}{monthly_payment}.
 
 On the other hand, in the corresponding test class, dependencies are mocked
@@ -100,8 +101,8 @@ history to understand the steps that make it happen, strictly following
 All code has been versioned using \emph{Git} and hosted at \cite{repo}; moreover,
 a link with \emph{Travis CI} server \cite{travis} has been established in order to have
 automatic builds for both branches and pull requests, targeting two 
-different releases of Python, in particular according to the following build configuration
-\inputminted{yaml}{../.travis.yml}
+different releases of Python.
+%\inputminted{yaml}{../.travis.yml}
 
 \section{Conclusions}
 
